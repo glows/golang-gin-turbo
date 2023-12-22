@@ -22,17 +22,17 @@ func NewOrganizationHandler(OrganizationService service.OrganizationServiceI) *O
 	}
 }
 
-// GetPostByID godoc
-// @Summary Get post by id
-// @Description Get post by id
-// @ID get-post
-// @Tags Posts Actions
+// GetOrganizationByID godoc
+// @Summary Get organization by id
+// @Description Get organization by id
+// @ID get-organization
+// @Tags Organizations Actions
 // @Produce json
-// @Param id path int true "Post ID"
-// @Success 200 {object} response.GetPostResponse
+// @Param id path int true "Organization ID"
+// @Success 200 {object} response.GetOrganizationResponse
 // @Failure 401 {object} response.Error
 // @Security ApiKeyAuth
-// @Router /post/{id} [get]
+// @Router /organization/{id} [get]
 func (handler OrganizationHandler) GetPostByID(context *gin.Context) {
 	id, _ := strconv.Atoi(context.Param("id"))
 
@@ -90,21 +90,21 @@ func (handler OrganizationHandler) SavePost(context *gin.Context) {
 	})
 }
 
-// UpdatePost godoc
-// @Summary Update post
-// @Description Update post
-// @ID posts-update
-// @Tags Posts Actions
+// UpdateOrganization godoc
+// @Summary Update organization
+// @Description Update organization
+// @ID organizations-update
+// @Tags Organizations Actions
 // @Accept json
 // @Produce json
-// @Param id path int true "Post ID"
-// @Param params body request.UpdatePostRequest true "Post title and content"
-// @Success 200 {string} response.GetPostResponse
+// @Param id path int true "Organization ID"
+// @Param params body request.UpdateOrganizationRequest true "Organization title and content"
+// @Success 200 {string} response.GetOrganizationResponse
 // @Failure 400 {string} string "Bad request"
 // @Failure 404 {object} response.Error
 // @Security ApiKeyAuth
-// @Router /post/{id} [put]
-func (handler OrganizationHandler) UpdatePost(context *gin.Context) {
+// @Router /organization/{id} [put]
+func (handler OrganizationHandler) UpdateOrganization(context *gin.Context) {
 	var updatePostRequest request.UpdatePostRequest
 
 	if err := context.ShouldBind(&updatePostRequest); err != nil {
@@ -139,17 +139,17 @@ func (handler OrganizationHandler) UpdatePost(context *gin.Context) {
 	})
 }
 
-// GetPosts godoc
-// @Summary Get all posts
-// @Description Get all posts of all users
-// @ID get-posts
-// @Tags Posts Actions
+// GetOrganizations godoc
+// @Summary Get all organizations
+// @Description Get all organizations of all users
+// @ID get-organizations
+// @Tags Organizations Actions
 // @Produce json
 // @Success 200 {object} response.CollectionResponse
 // @Failure 401 {object} response.Error
 // @Security ApiKeyAuth
-// @Router /posts [get]
-func (handler OrganizationHandler) GetPosts(context *gin.Context) {
+// @Router /organizations [get]
+func (handler OrganizationHandler) Getorganizations(context *gin.Context) {
 	var posts []model.Post
 	if err := handler.OrganizationService.GetAll(&posts); err != nil {
 		response.ErrorResponse(context, http.StatusInternalServerError, "Server error")
@@ -158,16 +158,16 @@ func (handler OrganizationHandler) GetPosts(context *gin.Context) {
 	response.SuccessResponse(context, response.CreatePostsCollectionResponse(posts))
 }
 
-// DeletePost godoc
-// @Summary Delete post
-// @Description Delete post
-// @ID posts-delete
-// @Tags Posts Actions
-// @Param id path int true "Post ID"
-// @Success 200 {string} string "Post deleted successfully"
+// DeleteOrganization godoc
+// @Summary Delete organization
+// @Description Delete organization
+// @ID organizations-delete
+// @Tags Organizations Actions
+// @Param id path int true "Organization ID"
+// @Success 200 {string} string "Organization deleted successfully"
 // @Failure 404 {object} response.Error
 // @Security ApiKeyAuth
-// @Router /post/{id} [delete]
+// @Router /organization/{id} [delete]
 func (handler OrganizationHandler) DeletePost(context *gin.Context) {
 	post := model.Post{}
 	id, _ := strconv.Atoi(context.Param("id"))
