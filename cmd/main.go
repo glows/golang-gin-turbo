@@ -30,5 +30,6 @@ func main() {
 	}
 
 	docs.SwaggerInfo.Host = fmt.Sprintf("%s:%s", os.Getenv("HOST"), os.Getenv("PORT"))
+	fmt.Println(os.Getenv("PORT"))
 	application.Start(config.NewConfig())
 }
