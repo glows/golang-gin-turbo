@@ -33,7 +33,7 @@ func NewOrganizationHandler(OrganizationService service.OrganizationServiceI) *O
 // @Failure 401 {object} response.Error
 // @Security ApiKeyAuth
 // @Router /organization/{id} [get]
-func (handler OrganizationHandler) GetPostByID(context *gin.Context) {
+func (handler OrganizationHandler) GetOrganizationByID(context *gin.Context) {
 	id, _ := strconv.Atoi(context.Param("id"))
 
 	post := model.Post{}
@@ -54,19 +54,19 @@ func (handler OrganizationHandler) GetPostByID(context *gin.Context) {
 	})
 }
 
-// SavePost godoc
-// @Summary Create post
+// SaveOrganization godoc
+// @Summary Create organization
 // @Description Create post
 // @ID posts-create
-// @Tags Posts Actions
+// @Tags Organizations Actions
 // @Accept json
 // @Produce json
-// @Param params body request.CreatePostRequest true "Post title and content"
+// @Param params body request.CreateOrganizationRequest true "Post title and content"
 // @Success 200 {string} response.CreatePostResponse
 // @Failure 400 {string} string "Bad request"
 // @Security ApiKeyAuth
-// @Router /posts [post]
-func (handler OrganizationHandler) SavePost(context *gin.Context) {
+// @Router /organizations [post]
+func (handler OrganizationHandler) SaveOrganization(context *gin.Context) {
 	var createPostRequest request.CreatePostRequest
 
 	if err := context.ShouldBind(&createPostRequest); err != nil {
@@ -149,7 +149,7 @@ func (handler OrganizationHandler) UpdateOrganization(context *gin.Context) {
 // @Failure 401 {object} response.Error
 // @Security ApiKeyAuth
 // @Router /organizations [get]
-func (handler OrganizationHandler) Getorganizations(context *gin.Context) {
+func (handler OrganizationHandler) GetOrganizations(context *gin.Context) {
 	var posts []model.Post
 	if err := handler.OrganizationService.GetAll(&posts); err != nil {
 		response.ErrorResponse(context, http.StatusInternalServerError, "Server error")
@@ -168,7 +168,7 @@ func (handler OrganizationHandler) Getorganizations(context *gin.Context) {
 // @Failure 404 {object} response.Error
 // @Security ApiKeyAuth
 // @Router /organization/{id} [delete]
-func (handler OrganizationHandler) DeletePost(context *gin.Context) {
+func (handler OrganizationHandler) DeleteOrganization(context *gin.Context) {
 	post := model.Post{}
 	id, _ := strconv.Atoi(context.Param("id"))
 	if err := handler.OrganizationService.GetByID(id, &post); err != nil {

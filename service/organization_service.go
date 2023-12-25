@@ -69,7 +69,7 @@ func (service *OrganizationService) Delete(post *model.Post) *RestError {
 	return nil
 }
 
-func (service *OrganizationService) CreatePost(title, content string, userID uint) (*model.Post, *RestError) {
+func (service *OrganizationService) CreateOrganization(title, content string, userID uint) (*model.Post, *RestError) {
 	post := &model.Post{
 		Title:   title,
 		Content: content,
@@ -86,6 +86,6 @@ func (service *OrganizationService) CreatePost(title, content string, userID uin
 	return post, nil
 }
 
-func NewOrganizationService(OrgRepo repository.OrganizationRepositoryI) PostServiceI {
+func NewOrganizationService(OrgRepo repository.OrganizationRepositoryI) OrganizationServiceI {
 	return &OrganizationService{OrgRepository: OrgRepo}
 }
